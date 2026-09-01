@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Girardi — Productos para el hogar</title>
 
+    <!--
+      Política de seguridad de contenido. Encierra de dónde puede cargar la app y a
+      dónde puede mandar datos: si algún día entra un script inyectado, no puede
+      llevarse la sesión a un servidor ajeno porque connect-src sólo deja Supabase.
+
+      script-src va sin 'unsafe-inline': el único script en línea es el del tema, y
+      se habilita por su hash. Si cambiás ese bloque de abajo, recalculá el hash
+      con scripts/auditar-seguridad.mjs o el navegador va a bloquearlo.
+
+      Nota: frame-ancestors, HSTS y X-Frame-Options NO funcionan desde un <meta>,
+      sólo como encabezado HTTP. Están en public/_headers, que aplica cuando el
+      sitio se sirve desde Cloudflare o Netlify (no desde GitHub Pages).
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'sha256-KrNDOtih483+Cymhe7RTL8Q2iQPLjO+Cf3ispvctjko='; connect-src 'self' https://maianqngljjqxuycoyab.supabase.co wss://maianqngljjqxuycoyab.supabase.co; form-action 'self'; upgrade-insecure-requests"
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,7 +41,7 @@
           localStorage.getItem('girardi.theme') || 'light';
       } catch (e) {}
     </script>
-    <script type="module" crossorigin src="/girardi/assets/index-CY8kRWrf.js"></script>
+    <script type="module" crossorigin src="/girardi/assets/index-DiVhm3Tu.js"></script>
     <link rel="stylesheet" crossorigin href="/girardi/assets/index-MA1nTRss.css">
   </head>
   <body>

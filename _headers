@@ -1,0 +1,31 @@
+# Encabezados de seguridad HTTP.
+#
+# Este archivo lo leen Cloudflare Pages y Netlify (Vite lo copia tal cual a la
+# raíz del sitio). GitHub Pages lo ignora: por eso una parte de la protección
+# vive en el <meta> de index.html, pero HSTS y frame-ancestors SÓLO funcionan
+# como encabezado de verdad, y sólo van a estar activos cuando el sitio se sirva
+# desde Cloudflare/Netlify con el dominio propio (girardihogar.app).
+#
+# Cuando muevas el sitio: verificá con
+#   curl -sI https://girardihogar.app/ | grep -iE 'strict-transport|content-security|x-frame'
+
+/*
+  # HTTPS obligatorio por dos años, subdominios incluidos, y listo para la lista
+  # de precarga de los navegadores. En un .app el TLD ya viene precargado; este
+  # encabezado te da lo mismo en cualquier dominio detrás de Cloudflare.
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+  # Que nadie te embeba en un iframe ajeno para robar clicks (clickjacking).
+  X-Frame-Options: DENY
+
+  # El navegador no adivina el tipo de un archivo: respeta el que declara el server.
+  X-Content-Type-Options: nosniff
+
+  # No filtrar la URL completa (que puede tener datos) hacia sitios de terceros.
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # La app no usa cámara, micrófono, ubicación ni pagos del navegador: se apagan.
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=()
+
+  # Misma política que el <meta>, más frame-ancestors, que acá sí tiene efecto.
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data: blob:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'sha256-KrNDOtih483+Cymhe7RTL8Q2iQPLjO+Cf3ispvctjko='; connect-src 'self' https://maianqngljjqxuycoyab.supabase.co wss://maianqngljjqxuycoyab.supabase.co; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
